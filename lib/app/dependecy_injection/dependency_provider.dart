@@ -41,8 +41,7 @@ class DependencyProviderState extends State<DependencyProvider> {
               BlocProvider.value(value: BottomBarCubit(TabBarState(selectedTab: const HomeScreen()))),
               BlocProvider(
               lazy: false,
-              create:
-                  RepositoryProvider.of<BlocCreator<HomeScreenBloc>>(context),
+              create:RepositoryProvider.of<BlocCreator<HomeScreenBloc>>(context),
             ),
             ],
             child: widget.child,

@@ -14,7 +14,7 @@ class ShowList extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        context.read<HomeScreenBloc>().add(const HomeScreenEvent.fetch());
+        context.read<HomeScreenBloc>().add(FetchData());
       },
       child: ListView.builder(
         padding: EdgeInsets.zero,

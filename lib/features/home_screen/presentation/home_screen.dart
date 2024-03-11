@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:tv_show_bloc/app/utils/app_colors.dart';
 import 'package:tv_show_bloc/app/utils/app_styles.dart';
-import 'package:tv_show_bloc/features/home_screen/bloc/cubit/search_bar_cubit.dart';
 import 'package:tv_show_bloc/features/home_screen/bloc/home_screen_bloc.dart';
 import 'package:tv_show_bloc/features/home_screen/widgets/show_grid.dart';
 import 'package:tv_show_bloc/features/home_screen/widgets/show_list.dart';
@@ -57,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: TextField(
                                 controller: controller,
                                 onEditingComplete: () {
-                                  context.read<SearchBarCubit>().searchItem(controller.text, items);
+                                  context.read<HomeScreenBloc>().add(FilterData(value: controller.text));
                                 },
                                 decoration: const InputDecoration(
                                   hintText: 'Search',

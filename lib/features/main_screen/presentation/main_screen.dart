@@ -17,7 +17,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    context.read<HomeScreenBloc>().add(const HomeScreenEvent.fetch());
+    context.read<HomeScreenBloc>().add(FetchData());
     super.initState();
   }
 

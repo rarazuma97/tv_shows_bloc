@@ -13,18 +13,39 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final HomeScreenService service;
 
   HomeScreenBloc(this.service) : super(const _Initial()) {
-    on<HomeScreenEvent>(fetch);
-    }
+    on<FetchData>((event, emit) => fetch(event, emit));
+    on<FilterData>((event, emit) => filter(event, emit));
+  }
 
-
-    void fetch(HomeScreenEvent event,  Emitter<HomeScreenState> emit) async{
-       emit(const HomeScreenState.loading());
-      try {
-        TvShowResponse showResponse = await service.getShows(TvShowRequest());
-        emit(HomeScreenState.loaded(showResponse));
-      } on ApiException catch (e) {
-        emit(HomeScreenState.error(e.toString()));
+  Future<void> fetch(
+      FetchData event, Emitter<HomeScreenState> emit) async {
+    emit(const HomeScreenState.loading());
+    try {
+      TvShowResponse showResponse = await service.getShows(TvShowRequest());
+      if (emit.isDone) {}
+      emit(HomeScreenState.loaded(showResponse));
+    } on ApiException catch (e) {
+      emit(HomeScreenState.error(e.toString()));
     }
   }
 
+  Future<void> filter(FilterData event, Emitter<HomeScreenState> emit,
+      {String value = ""}) async {
+    emit(const HomeScreenState.loading());
+    try {
+      TvShowResponse items = await service.getShows(TvShowRequest());
+      final filteredList = searchItem(event.value, items);
+      emit(HomeScreenState.loaded(filteredList));
+    } on ApiException catch (e) {
+      emit(HomeScreenState.error(e.toString()));
+    }
+  }
+
+  TvShowResponse searchItem(String value, TvShowResponse shows) {
+    return TvShowResponse(
+        showList: shows.showList!
+            .where((element) =>
+                element.show!.name!.toLowerCase().contains(value.toLowerCase()))
+            .toList());
+  }
 }

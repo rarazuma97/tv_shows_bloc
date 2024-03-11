@@ -1,6 +1,9 @@
 part of 'home_screen_bloc.dart';
 
-@freezed
-class HomeScreenEvent with _$HomeScreenEvent {
-  const factory HomeScreenEvent.fetch() = _Fetch;
-}
+abstract class HomeScreenEvent{}
+
+class FetchData extends HomeScreenEvent {} 
+class FilterData extends HomeScreenEvent {
+  final String value;
+  FilterData({required this.value});
+} 

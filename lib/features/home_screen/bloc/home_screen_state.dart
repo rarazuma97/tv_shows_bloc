@@ -5,5 +5,5 @@ class HomeScreenState with _$HomeScreenState {
   const factory HomeScreenState.initial() = _Initial;
   const factory HomeScreenState.loading() = _Loading;
   const factory HomeScreenState.loaded(TvShowResponse items) = _Loaded;
-  const factory HomeScreenState.error(String localizedReasonKey) = _Error;
+  const factory HomeScreenState.error(String error) = _Error;
 }
