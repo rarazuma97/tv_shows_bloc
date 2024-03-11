@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tv_show_bloc/app/routing/main_navigation.dart';
 import 'package:tv_show_bloc/features/home_screen/models/response/tv_show_response.dart';
 import 'package:tv_show_bloc/features/home_screen/widgets/grid_show_item.dart';
 
@@ -24,7 +25,10 @@ class ShowGrid extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+                MainNavigation.push(
+                    context, MainNavigation.showDetail(shows[index]));
+            },
             child: GridShowItem(
               image: shows[index].show?.image?.medium ?? '',
               title: shows[index].show?.name ?? '',
